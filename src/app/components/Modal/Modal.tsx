@@ -1,11 +1,11 @@
 "use client";
 
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 
 interface ModalProps {
   children?: React.ReactNode;
   closeButton?: boolean;
-  openModal?: any;
+  openModal?: Dispatch<SetStateAction<boolean>>;
 }
 
 export const Modal = ({ children, closeButton, openModal }: ModalProps) => {
@@ -17,7 +17,7 @@ export const Modal = ({ children, closeButton, openModal }: ModalProps) => {
         {closeButton && (
           <div
             className={"font-bold cursor-pointer p-2"}
-            onClick={() => openModal(false)}
+            onClick={() => openModal && openModal(false)}
           >
             X
           </div>

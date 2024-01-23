@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import {
   registerDragon,
   updateDragon,
   removeDragon,
-} from "@/app/api/services/route";
+} from "@/app/api/services/routes";
 import { useRouter } from "next/navigation";
 
 interface Dragon {
@@ -17,11 +17,18 @@ interface Dragon {
 interface FormProps {
   dragon?: Dragon;
   onUpdate?: (dragon: Dragon) => void;
-  onRemove?: any;
+  onRemove?: (id: string) => void;
   submit?: "register" | "update";
+  openModal?: Dispatch<SetStateAction<boolean>>;
 }
 
-const Form: React.FC<FormProps> = ({ dragon, onUpdate, onRemove, submit }) => {
+const Form: React.FC<FormProps> = ({
+  dragon,
+  onUpdate,
+  onRemove,
+  submit,
+  openModal,
+}) => {
   const [name, setName] = useState(dragon?.name || "");
   const [type, setType] = useState(dragon?.type || "");
   const router = useRouter();
@@ -46,7 +53,7 @@ const Form: React.FC<FormProps> = ({ dragon, onUpdate, onRemove, submit }) => {
 
   const handleDelete = async (event: React.FormEvent) => {
     event.preventDefault();
-    onRemove(dragon?.id);
+    onRemove && dragon?.id && onRemove(dragon?.id);
     removeDragon(dragon?.id as string);
   };
 
@@ -81,12 +88,10 @@ const Form: React.FC<FormProps> = ({ dragon, onUpdate, onRemove, submit }) => {
         ) : (
           <div className="flex gap-4 md:flex md:justify-around md:mb-12 ">
             <button
+              onClick={() => openModal && openModal(true)}
               className="hover:text-[#9896f1]"
-              onClick={() => router.push(`/details?id=${dragon?.id}`)}
+              type="submit"
             >
-              Visualizar
-            </button>
-            <button className="hover:text-[#9896f1]" type="submit">
               Editar
             </button>
             <button className="hover:text-[#9896f1]" onClick={handleDelete}>
@@ -95,6 +100,14 @@ const Form: React.FC<FormProps> = ({ dragon, onUpdate, onRemove, submit }) => {
           </div>
         )}
       </form>
+      <button
+        className="hover:text-[#9896f1]"
+        onClick={() => {
+          router.push(`/details?id=${dragon?.id}`);
+        }}
+      >
+        Visualizar
+      </button>
     </div>
   );
 };

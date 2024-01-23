@@ -3,7 +3,7 @@
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
-import { getDragons } from "../api/services/route";
+import { getDragons } from "../api/services/routes";
 import Form from "../components/Form/Form";
 import { Modal } from "../components/Modal/Modal";
 
@@ -43,7 +43,6 @@ export default function Dragons() {
   const handleUpdate = (updatedDragon: DragonsProps) => {
     const updatedDragons = dragons.map((dragon) => {
       if (dragon.id === updatedDragon.id) {
-        setOpenModal(true);
         return {
           ...dragon,
           name: updatedDragon.name,
@@ -72,6 +71,7 @@ export default function Dragons() {
             onUpdate={handleUpdate}
             onRemove={handleDelete}
             submit="update"
+            openModal={setOpenModal as any}
           />
         ))}
       </div>

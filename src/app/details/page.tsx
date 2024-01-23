@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import { useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
-import { getDragon } from "../api/services/route";
+import { getDragon } from "../api/services/routes";
 import { formatDateBr } from "@/utils/format-date";
 
 interface DetailsProps {
