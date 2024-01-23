@@ -31,7 +31,7 @@ export default function Dragons() {
     fetchDragons();
   }, []);
 
-  const { data: session, status } = useSession({
+  const { status } = useSession({
     required: true,
     onUnauthenticated() {
       redirect("/api/auth/signin?callbackUrl=/dragons");
@@ -40,11 +40,10 @@ export default function Dragons() {
 
   if (status !== "authenticated") return;
 
-  // const drangosSort =
-
   const handleUpdate = (updatedDragon: DragonsProps) => {
     const updatedDragons = dragons.map((dragon) => {
       if (dragon.id === updatedDragon.id) {
+        setOpenModal(true);
         return {
           ...dragon,
           name: updatedDragon.name,
@@ -54,7 +53,6 @@ export default function Dragons() {
       return dragon;
     });
     setDragons(updatedDragons);
-    setOpenModal(true);
   };
 
   const handleDelete = (id: string) => {

@@ -26,7 +26,7 @@ export default function Details() {
     };
 
     fetchDragon();
-  }, []);
+  }, [getId]);
 
   const { status } = useSession({
     required: true,
