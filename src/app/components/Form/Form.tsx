@@ -58,9 +58,9 @@ const Form: React.FC<FormProps> = ({
   };
 
   return (
-    <div className="flex gap-6">
+    <div className="flex gap-6 md:flex flex-col">
       <form
-        className="flex gap-4 md:flex-col md:w-full md:mb-12 md:border-b-[#6c69eb] md:border-b-[3px] md:border-solid"
+        className="flex gap-4 md:flex-col md:w-full"
         onSubmit={handleSubmit}
       >
         <div>
@@ -86,7 +86,7 @@ const Form: React.FC<FormProps> = ({
             Cadastrar
           </button>
         ) : (
-          <div className="flex gap-4 md:flex md:justify-around md:mb-12 ">
+          <div className="flex gap-4 md:flex md:justify-around">
             <button
               onClick={() => openModal && openModal(true)}
               className="hover:text-[#9896f1]"
@@ -101,7 +101,7 @@ const Form: React.FC<FormProps> = ({
         )}
       </form>
       <button
-        className="hover:text-[#9896f1]"
+        className="hover:text-[#9896f1] md:border-b-[#6c69eb] md:border-b-[3px] md:border-solid md:mb-12 md:p-3"
         onClick={() => {
           router.push(`/details?id=${dragon?.id}`);
         }}
