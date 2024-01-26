@@ -58,7 +58,7 @@ const Form: React.FC<FormProps> = ({
   };
 
   return (
-    <div className="flex gap-6 md:flex flex-col">
+    <div className="flex gap-6 md:flex md:flex-col">
       <form
         className="flex gap-4 md:flex-col md:w-full"
         onSubmit={handleSubmit}
